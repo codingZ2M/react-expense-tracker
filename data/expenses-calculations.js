@@ -1,10 +1,9 @@
 
-// Convert timestamp (id) to 'MM-YYYY' format
 export const formatDate = (timestamp) => {
   const date = new Date(timestamp);
   const month = (date.getMonth() + 1).toString().padStart(2, '0');  // pad month to 2 digits
   const year = date.getFullYear();
-  return `${month}-${year}`;  // 'MM-YYYY' format for comparison
+  return `${year}-${month}`;  // 'YYYY-MM' format for comparison
 };
 
 export const selectedMonthTotalExpenses = (expenses, selectedMonth) => {

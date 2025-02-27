@@ -3,8 +3,11 @@ import ExpenseList from "../components/ExpenseList";
 import { selectedMonthTotalExpenses, selectedMonthFilteredExpenses } from "../../data/expenses-calculations";
 import { PiEmpty } from "react-icons/pi";
 
-const ExpensesSummary = ({ expenses }) => {
-  const [selectedMonth, setSelectedMonth] = useState("11-2024"); // Format 'MM-YYYY'
+import { useExpenses } from "../../context/ExpensesContext";
+
+const ExpensesSummary = () => {
+  const {expenses} = useExpenses();
+  const [selectedMonth, setSelectedMonth] = useState(); 
 
   // Calculate total expenses for selected month
   const selectedMonthExpenses = selectedMonthTotalExpenses(expenses, selectedMonth);
@@ -21,11 +24,11 @@ const ExpensesSummary = ({ expenses }) => {
                      className="w-full px-3 py-2 border-2 border-[#F20C1F] rounded-md shadow-sm text-sm
                                 focus:outline-none focus:ring-2 focus:ring-[#4557BF] focus:border-[#4557BF] 
                                text-[#260101] bg-[#F2F2F2] placeholder-[#BFB304]"
-                      value={selectedMonth.split("-").reverse().join("-")} // Format MM-YYYY back to YYYY-MM
+                      value={selectedMonth} 
                       onChange={(e) => {
                                          const value = e.target.value;
                                          const [year, month] = value.split("-");
-                                         setSelectedMonth(`${month}-${year}`); // Format as MM-YYYY
+                                         setSelectedMonth(`${year}-${month}`); // Format as YYYY-MM
                                 }}
                />
         </div>

@@ -13,9 +13,11 @@ import Charts from '../components/Charts';
 import { Link } from 'react-router-dom';
 
 import { selectedMonthTotalExpenses, calculateCategoryExpenses } from '../../data/expenses-calculations';
+import { useExpenses } from '../../context/ExpensesContext';
 
-const Dashboard = ({ expenses }) => {
-  const [selectedMonth, setSelectedMonth] = useState('11-2024');
+const Dashboard = () => {
+  const {expenses} = useExpenses();
+  const [selectedMonth, setSelectedMonth] = useState("");
 
   // Calling functions to calculate Total & Categorywise Monthly Expenses 
   const selectedMonthExpenses = selectedMonthTotalExpenses(expenses, selectedMonth);
@@ -77,11 +79,11 @@ const Dashboard = ({ expenses }) => {
                         className="w-full px-3 py-2 border-2 border-[#F20C1F] rounded-md shadow-sm text-sm
                                 focus:outline-none focus:ring-2 focus:ring-[#4557BF] focus:border-[#4557BF] 
                                text-[#260101] bg-[#F2F2F2] placeholder-[#BFB304]"
-                      value={selectedMonth.split("-").reverse().join("-")} // Format MM-YYYY back to YYYY-MM
+                      value={selectedMonth} 
                       onChange={(e) => {
                                          const value = e.target.value;
                                          const [year, month] = value.split("-");
-                                         setSelectedMonth(`${month}-${year}`); // Format as MM-YYYY
+                                         setSelectedMonth(`${year}-${month}`); // Format as YYYY-MM
                                 }}
                />
             </div>
